@@ -1,7 +1,8 @@
 import time
 from sklearn import cluster
 
-# read in kegg network (Relation Network directed) aac00010,26,43,2,7,1,211,3.222748815,3.230769231,0,0,1,4.125757576,1.653846154,27,0,0.076923077
+"""
+# read in kegg network data
 keggData = []
 with open("Relation Network (Directed).data") as fp:
   line = fp.readline()
@@ -13,9 +14,44 @@ with open("Relation Network (Directed).data") as fp:
     keggData.append(valueList)
     line = fp.readline()
     
-print(keggData)
+# run the full kmeans algorithm on the kegg network data
+start_time = time.time()
+full_kmeans = cluster.KMeans(algorithm = "full").fit(keggData)
+print("Kegg Network Full :" + str(time.time() - start_time))
 
-# read in gas sensor (driftdatabase)
+# run the elkan kmeans algorithm on the kegg network data
+start_time = time.time()
+elkan_kmeans = cluster.KMeans(algorithm = "elkan").fit(keggData)
+print("Kegg Network Elkan :" + str(time.time() - start_time))
+
+"""
+
+# read in gas sensor data n = 445 d = 128
 driftData = []
+with open("driftdataset/batch1.dat") as fp:
+  line = fp.readline()
+  while line:
+    valueList = line.split(" ")
+    floatList = []
+    # remove number in front of each element
+    for each in valueList:
+      each.replace(';', ':')
+      values = each.split(":")
+      values.pop(0)
+      print(values)
+      #floatList.append(values)
+    floatList = [float(i) for i in valueList]
+    driftData.append(floatList)
+    line = fp.readline()
+
+# run the full kmeans algorithm on the gas sensor data
+start_time = time.time()
+full_kmeans = cluster.KMeans(algorithm = "full").fit(driftData)
+print("Gas Sensor Full :" + str(time.time() - start_time))
+
+# run the elkan kmeans algorithm on the gas sensor data
+start_time = time.time()
+elkan_kmeans = cluster.KMeans(algorithm = "elkan").fit(driftData)
+print("Gas Sensor Elkan :" + str(time.time() - start_time))
 
 # read in road (3d spatial network)
