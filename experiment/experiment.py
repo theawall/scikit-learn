@@ -1,7 +1,6 @@
 import time
 from sklearn import cluster
 
-"""
 # read in kegg network data
 keggData = []
 with open("Relation Network (Directed).data") as fp:
@@ -53,5 +52,7 @@ print("Gas Sensor Full :" + str(time.time() - start_time))
 start_time = time.time()
 elkan_kmeans = cluster.KMeans(algorithm = "elkan").fit(driftData)
 print("Gas Sensor Elkan :" + str(time.time() - start_time))
+
+"""
 
 # read in road (3d spatial network)
